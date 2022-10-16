@@ -18,11 +18,24 @@ export default class TaskScene extends Phaser.Scene {
     const scene = this;
     const element = document.createElement("div");
     element.style.color = "#fff";
-    element.style.border = "1px solid red";
     element.style.width = "500px";
     element.style.height = "600px";
     element.id = "twitch-embed";
     this.player = scene.add.dom(250, 300, element);
+
+    const element2 = document.createElement("button");
+    element.type = "button";
+    element2.style.color = "#000";
+    element2.style.background = "#fff";
+    element2.id = "exit";
+    element2.innerHTML = "Exit to lobby";
+    element2.style.cursor = "pointer";
+    this.exit = scene.add.dom(0, 580, element2);
+    this.exit.setOrigin(0, 0);
+    element2.addEventListener("click", (event) => {
+      this.scene.stop();
+      this.scene.resume("MainScene");
+    });
 
     const chat = document.createElement("iframe");
     chat.id = "twitch-chat-embed";
@@ -51,9 +64,6 @@ export default class TaskScene extends Phaser.Scene {
       if (event.code === "Escape") {
         this.scene.stop();
         this.scene.resume("MainScene");
-
-        // var player = embed.getPlayer();
-        // player.stop();
       }
     });
   }

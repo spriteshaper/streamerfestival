@@ -13,7 +13,7 @@ export default class MainScene extends Phaser.Scene {
       frameWidth: 29,
       frameHeight: 37,
     });
-    this.load.image("vendingMachine", "assets/sprites/vendingMachine.png");
+    this.load.image("vendingMachine", "assets/sprites/dj.gif");
     this.load.image("mainroom", "assets/backgrounds/mainroom.png");
   }
 
@@ -46,11 +46,9 @@ export default class MainScene extends Phaser.Scene {
     this.controlPanelGroup = this.physics.add.staticGroup({
       classType: ControlPanel,
     });
-    this.controlPanelVendingMachine = this.controlPanelGroup.create(
-      90,
-      160,
-      "vendingMachine"
-    );
+    this.controlPanelVendingMachine = this.controlPanelGroup
+      .create(90, 160, "vendingMachine")
+      .setInteractive({ cursor: "pointer" });
 
     this.controlPanelVendingMachine.on("pointerdown", () => {
       this.scene.pause();
@@ -173,10 +171,12 @@ export default class MainScene extends Phaser.Scene {
   addPlayer(scene, playerInfo) {
     scene.joined = true;
     const astronaut = this.add.sprite(0, 0, "astronaut");
-    const text = this.add.text(-40, -40, playerInfo.userName, {
-      font: "16px Arial",
-      fill: "#ffffff",
-    });
+    const text = this.add
+      .text(0, -40, playerInfo.userName, {
+        font: "16px Arial",
+        fill: "#ffffff",
+      })
+      .setOrigin(0.5, 0.5);
     const container = this.add.container(playerInfo.x, playerInfo.y, [
       text,
       astronaut,
@@ -188,14 +188,23 @@ export default class MainScene extends Phaser.Scene {
   }
   addOtherPlayers(scene, playerInfo) {
     console.log("addOtherPlayers", playerInfo);
-    const otherPlayer = scene.add.sprite(
-      playerInfo.x + 40,
-      playerInfo.y + 40,
-      "astronaut"
-    );
-    otherPlayer.playerId = playerInfo.playerId;
-    otherPlayer.userName = playerInfo.userName;
-    scene.otherPlayers.add(otherPlayer);
+    const otherPlayer = scene.add.sprite(0, 0, "astronaut");
+
+    const text = this.add
+      .text(0, -32, playerInfo.userName, {
+        font: "16px Arial",
+        fill: "#ffffff",
+      })
+      .setOrigin(0.5, 0.5);
+    const container = this.add.container(playerInfo.x, playerInfo.y, [
+      text,
+      otherPlayer,
+    ]);
+
+    container.playerId = playerInfo.playerId;
+    container.userName = playerInfo.userName;
+
+    scene.otherPlayers.add(container);
   }
 
   highlightControlPanel(astronaut, controlPanel) {
