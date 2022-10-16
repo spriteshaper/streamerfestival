@@ -47,8 +47,8 @@ export default class MainScene extends Phaser.Scene {
       classType: ControlPanel,
     });
     this.controlPanelVendingMachine = this.controlPanelGroup.create(
-      300,
-      300,
+      90,
+      160,
       "vendingMachine"
     );
 

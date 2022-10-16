@@ -34,25 +34,25 @@ export default class WaitingRoom extends Phaser.Scene {
     scene.popUp.fillRect(25, 25, 750, 500);
 
     //title
-    scene.title = scene.add.text(100, 75, "RegEx Spaceship", {
-      fill: "#add8e6",
+    scene.title = scene.add.text(64, 32, "Streamer Festival", {
+      fill: "#333",
       fontSize: "66px",
       fontStyle: "bold",
     });
 
     //left popup
-    scene.boxes.strokeRect(100, 200, 275, 100);
-    scene.boxes.fillRect(100, 200, 275, 100);
-    scene.requestButton = scene.add.text(140, 215, "Request Room Key", {
-      fill: "#000000",
-      fontSize: "20px",
-      fontStyle: "bold",
-    });
+    // scene.boxes.strokeRect(100, 200, 275, 100);
+    // scene.boxes.fillRect(100, 200, 275, 100);
+    // scene.requestButton = scene.add.text(140, 215, "Request Room Key", {
+    //   fill: "#000000",
+    //   fontSize: "20px",
+    //   fontStyle: "bold",
+    // });
 
     //right popup
-    scene.boxes.strokeRect(425, 200, 275, 100);
-    scene.boxes.fillRect(425, 200, 275, 100);
-    scene.inputElement = scene.add.dom(562.5, 250).createFromCache("codeform");
+    scene.boxes.strokeRect(262, 200, 275, 100);
+    scene.boxes.fillRect(262, 200, 275, 100);
+    scene.inputElement = scene.add.dom(400, 250).createFromCache("codeform");
     scene.inputElement.addListener("click");
     scene.inputElement.on("click", function (event) {
       if (event.target.name === "enterRoom") {
@@ -61,11 +61,11 @@ export default class WaitingRoom extends Phaser.Scene {
         scene.socket.emit("isKeyValid", input.value);
       }
     });
-    scene.requestButton.setInteractive();
-    scene.requestButton.on("pointerdown", () => {
-      console.log("getting room code");
-      scene.socket.emit("getRoomCode");
-    });
+    // scene.requestButton.setInteractive();
+    // scene.requestButton.on("pointerdown", () => {
+    //   console.log("getting room code");
+    //   scene.socket.emit("getRoomCode");
+    // });
 
     scene.notValidText = scene.add.text(670, 295, "", {
       fill: "#ff0000",
